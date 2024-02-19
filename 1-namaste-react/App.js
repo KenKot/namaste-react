@@ -1,20 +1,22 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 
-const parent = React.createElement(
-  "div", //what type of tag?
-  { id: "parent" }, //what attributes?
-  React.createElement(
-    //the children - this can be converted to an array for multiple children
-    "div",
-    { id: "child" },
-    [
-      React.createElement("h1", {}, "I am an h1 tag"),
-      React.createElement("h1", {}, "I am an h1 tag also!"),
-    ]
-  )
-);
+// React Element
+//tag       attributes   children(can be an array)
+// const heading = React.createElement("h1", {id: "heading"}, "Namaste React");
+
+const Parent = () => {
+  return (
+    <div>
+      <h1>Parent stuff</h1>
+      <Child />
+    </div>
+  );
+};
+
+const Child = () => {
+  return <h3>child stuff</h3>;
+};
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-
-root.render(parent);
+root.render(<Parent />);
