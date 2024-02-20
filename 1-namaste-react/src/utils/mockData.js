@@ -1,4 +1,4 @@
-export const resList = [
+const mockData = [
   {
     type: "restaurant",
     data: {
@@ -1882,3 +1882,5 @@ export const resList = [
     subtype: "basic",
   },
 ];
+
+export default mockData;
