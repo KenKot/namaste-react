@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { resList } from "./resObj";
 
 const Header = () => {
   return (
@@ -31,17 +32,28 @@ const styleCard = {
 const RestaurantCard = (props) => {
   // inline CSS version 2
   // <div className="res-card" style={{backgroundColor: "blue"}}>
+
+  const {
+    name,
+    cuisines,
+    avgRating,
+    costForTwo,
+    deliveryTime,
+    cloudinaryImageId,
+  } = props.res.data;
+
   return (
     <div className="res-card" style={styleCard}>
       <img
         className="res-logo"
-        src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_288,h_360/v1674029845/PC_Creative%20refresh/3D_bau/banners_new/Burger.png"
+        src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/${cloudinaryImageId}`}
         alt="res-logo"
       />
-      <h3>{props.resName}</h3>
-      <h4>Birayna, North Indian, Asian</h4>
-      <h4>4.4 stars</h4>
-      <h4>30 minutes</h4>
+      <h3>{name}</h3>
+      <h4>{cuisines.join(", ")}</h4>
+      <h4>{avgRating}</h4>
+      <h4>{costForTwo / 100}</h4>
+      <h4>{deliveryTime} minutes</h4>
     </div>
   );
 };
@@ -51,8 +63,9 @@ const Body = () => {
     <div className="body">
       <div className="search">search</div>
       <div className="res-container">
-        <RestaurantCard resName="Meghana Foods" />
-        <RestaurantCard resName="KFC" />
+        {resList.map((res) => (
+          <RestaurantCard res={res} key={res.data.id} />
+        ))}
       </div>
     </div>
   );
