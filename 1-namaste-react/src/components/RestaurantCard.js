@@ -1,4 +1,4 @@
-import {CDN_URL} from "../utils/constants";
+import { CDN_URL } from "../utils/constants";
 
 // de-structuring props:
 // const RestaurantCard = ({resName}) => {
@@ -17,7 +17,7 @@ const RestaurantCard = (props) => {
     costForTwo,
     deliveryTime,
     cloudinaryImageId,
-  } = props?.res?.data;
+  } = props?.res?.info;
 
   return (
     <div className="res-card" style={styleCard}>
