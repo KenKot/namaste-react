@@ -10,12 +10,16 @@
 .nav-items > ul {
   font-size: 24px;
   display: flex;
+
   list-style-type: none;
+  color: blue;
 }
 
 .nav-items {
   /* 20 for left/right. 0 for top/bottom */
   padding: 0px 20px;
+  display: flex;
+  align-items: center;
 }
 
 .nav-items > ul > li {

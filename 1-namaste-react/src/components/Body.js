@@ -1,7 +1,7 @@
 import RestaurantCard from "./RestaurantCard";
 import mockData from "../utils/mockData";
 
-import {useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 
 const Body = () => {
   const [data, setData] = useState(mockData);
@@ -14,7 +14,7 @@ const Body = () => {
         <button
           className="filter-btn"
           onClick={() => {
-            console.log("hi");
+            console.log("filter button fired");
             setData((prev) => prev.filter((res) => res.data.avgRating > 4));
           }}
         >
