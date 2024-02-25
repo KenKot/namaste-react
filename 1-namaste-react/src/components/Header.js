@@ -1,9 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { LOGO_URL } from "../utils/constants";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   console.log("Header() ran");
   const [btnName, setBtnName] = useState("Login");
+
+  useEffect(() => {
+    console.log("Header.js - useEffect() fired");
+  }, [btnName]);
+
+  //no dep = called on every render
+  //empty dep array = called only on initial render
+  //[var1, var2] = called if any of these change
 
   return (
     <div className="header">
@@ -12,10 +21,19 @@ const Header = () => {
       </div>
       <div className="nav-items">
         <ul>
-          <li>Home</li>
-          <li>About Us</li>
-          <li>Contact Us</li>
-          <li>Cart</li>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+
+          <li>
+            <Link to="/about">About Us</Link>
+          </li>
+          <li>
+            <Link to="/contact">Contact Us</Link>
+          </li>
+          <li>
+            <Link to="/cart">Cart</Link>
+          </li>
           <button
             className="login"
             onClick={() => {

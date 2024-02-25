@@ -2,6 +2,8 @@ import RestaurantCard from "./RestaurantCard";
 import mockData from "../utils/mockData";
 import Shimmer from "./Shimmer";
 
+import { Link } from "react-router-dom";
+
 import { useState, useEffect } from "react";
 
 const Body = () => {
@@ -21,6 +23,7 @@ const Body = () => {
       "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9351929&lng=77.62448069999999&page_type=DESKTOP_WEB_LISTING"
       // "https://corsproxy.io/?https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9351929&lng=77.62448069999999&page_type=DESKTOP_WEB_LISTING"
     );
+
     const json = await data.json();
 
     console.log("fetchData fired: ", json);
@@ -78,7 +81,9 @@ const Body = () => {
       </div>
       <div className="res-container">
         {filteredData.map((res, idx) => (
-          <RestaurantCard res={res} key={res.info.id} />
+          <Link to={`/restaurants/${res.info.id}`} key={res.info.id}>
+            <RestaurantCard res={res} />
+          </Link>
         ))}
       </div>
     </div>
