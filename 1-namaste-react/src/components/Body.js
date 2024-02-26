@@ -3,19 +3,26 @@ import useFetchAndFilterData from "../utils/useFetchAndFilterData"; // Adjust th
 import useOnlineStatus from "../utils/useOnlineStatus"; // Adjust the path as necessary
 import Shimmer from "./Shimmer";
 import RestaurantCard from "./RestaurantCard";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 const Body = () => {
-  const { filteredData, searchText, setSearchText, filterTopRated } =
-    useFetchAndFilterData();
+  const {
+    data,
+    setData,
+    filteredData,
+    setFilteredData,
+    searchText,
+    setSearchText,
+  } = useFetchAndFilterData();
 
   const onlineStatus = useOnlineStatus();
 
   if (!onlineStatus) {
-    return <h1>You're offline</h1>;
+    return <div>You're offline</div>;
   }
 
-  return !filteredData.length ? (
+  return !data.length ? (
     <Shimmer />
   ) : (
     <div className="body">
@@ -25,16 +32,33 @@ const Body = () => {
             type="text"
             className="search-box"
             value={searchText}
-            onChange={(e) => setSearchText(e.target.value)}
+            onChange={(e) => {
+              setSearchText(e.target.value);
+            }}
           />
-          <button onClick={() => setSearchText(searchText)}>Search</button>
+          <button
+            onClick={() => {
+              const filteredRestaurants = data.filter((res) =>
+                res.info.name.toLowerCase().includes(searchText.toLowerCase())
+              );
+              setFilteredData(filteredRestaurants);
+            }}
+          >
+            Search
+          </button>
         </div>
-        <button className="filter-btn" onClick={filterTopRated}>
+        <button
+          className="filter-btn"
+          onClick={() => {
+            console.log("filter button fired");
+            setData((prev) => prev.filter((res) => res.info.avgRating > 4.4));
+          }}
+        >
           Top Rated Restaurants
         </button>
       </div>
       <div className="res-container">
-        {filteredData.map((res) => (
+        {filteredData.map((res, idx) => (
           <Link to={`/restaurants/${res.info.id}`} key={res.info.id}>
             <RestaurantCard res={res} />
           </Link>
@@ -45,6 +69,50 @@ const Body = () => {
 };
 
 export default Body;
+
+// ==========================================================
+// v2 VERSION
+
+// const Body = () => {
+//   const { filteredData, searchText, setSearchText, filterTopRated } =
+//     useFetchAndFilterData();
+
+//   const onlineStatus = useOnlineStatus();
+
+//   if (!onlineStatus) {
+//     return <h1>You're offline</h1>;
+//   }
+
+//   return !filteredData.length ? (
+//     <Shimmer />
+//   ) : (
+//     <div className="body">
+//       <div className="filter">
+//         <div className="search">
+//           <input
+//             type="text"
+//             className="search-box"
+//             value={searchText}
+//             onChange={(e) => setSearchText(e.target.value)}
+//           />
+//           <button onClick={() => setSearchText(searchText)}>Search</button>
+//         </div>
+//         <button className="filter-btn" onClick={filterTopRated}>
+//           Top Rated Restaurants
+//         </button>
+//       </div>
+//       <div className="res-container">
+//         {filteredData.map((res) => (
+//           <Link to={`/restaurants/${res.info.id}`} key={res.info.id}>
+//             <RestaurantCard res={res} />
+//           </Link>
+//         ))}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Body;
 
 // ==========================================================
 // OLD VERSION

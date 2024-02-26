@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react";
-import { LOGO_URL } from "../utils/constants";
-import { Link } from "react-router-dom";
+import {useEffect, useState} from "react";
+import {LOGO_URL} from "../utils/constants";
+import {Link} from "react-router-dom";
+
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 const Header = () => {
   console.log("Header() ran");
@@ -14,6 +16,8 @@ const Header = () => {
   //empty dep array = called only on initial render
   //[var1, var2] = called if any of these change
 
+  const onlineStatus = useOnlineStatus();
+
   return (
     <div className="header">
       <div className="logo-container">
@@ -21,6 +25,7 @@ const Header = () => {
       </div>
       <div className="nav-items">
         <ul>
+          <li>Online Status: {onlineStatus ? "✅" : "❌"}</li>
           <li>
             <Link to="/">Home</Link>
           </li>
@@ -33,6 +38,9 @@ const Header = () => {
           </li>
           <li>
             <Link to="/cart">Cart</Link>
+          </li>
+          <li>
+            <Link to="/grocery">Grocery</Link>
           </li>
           <button
             className="login"
