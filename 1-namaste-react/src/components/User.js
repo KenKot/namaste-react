@@ -1,8 +1,9 @@
-import {useState} from "react";
+import { useState, useEffect } from "react";
 
-const User = ({name, location, email}) => {
+const User = ({ name, location, email }) => {
   const [count] = useState(0);
   const [count2] = useState(2);
+
   return (
     <div className="user-card">
       <h1>Count: {count}</h1>
