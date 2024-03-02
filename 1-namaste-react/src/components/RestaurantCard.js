@@ -1,4 +1,4 @@
-import { CDN_URL } from "../utils/constants";
+import {CDN_URL} from "../utils/constants";
 
 // de-structuring props:
 // const RestaurantCard = ({resName}) => {
@@ -20,9 +20,9 @@ const RestaurantCard = (props) => {
   } = props?.res?.info;
 
   return (
-    <div className="res-card" style={styleCard}>
+    <div className=" " style={styleCard}>
       <img
-        className="res-logo"
+        className="res-logo w-48 "
         // src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/${cloudinaryImageId}`}
         src={`${CDN_URL}${cloudinaryImageId}`}
         alt="res-logo"
