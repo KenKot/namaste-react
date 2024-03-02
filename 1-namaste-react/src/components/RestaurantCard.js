@@ -17,7 +17,9 @@ const RestaurantCard = (props) => {
     costForTwo,
     deliveryTime,
     cloudinaryImageId,
-  } = props?.res?.info;
+  } = props?.res?.info || {};
+
+  console.log(cuisines);
 
   return (
     <div className=" " style={styleCard}>
@@ -28,12 +30,23 @@ const RestaurantCard = (props) => {
         alt="res-logo"
       />
       <h3>{name}</h3>
-      <h4>{cuisines.join(", ")}</h4>
+      {cuisines?.length ? <h4>{cuisines.join(", ")}</h4> : "no cuisines"}
       <h4>{avgRating}</h4>
       <h4>${costForTwo / 1000} FOR TWO</h4>
       <h4>{deliveryTime} minutes</h4>
     </div>
   );
+};
+
+export const withPromotedLabel = (RestaurantCard) => {
+  return (props) => {
+    return (
+      <div>
+        <label className="txt-xl bg-red-950 color text-white">Promoted</label>
+        <RestaurantCard {...props} />
+      </div>
+    );
+  };
 };
 
 export default RestaurantCard;

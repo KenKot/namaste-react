@@ -1,6 +1,63 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 
 const useRestaurantMenu = (resId) => {
+  const mockResInfo = {
+    cards: [
+      {}, // Empty objects to match the expected indexes
+      {},
+      {
+        card: {
+          card: {
+            info: {
+              name: "Mock Restaurant",
+              cuisines: ["Italian", "Mexican"],
+              costForTwoMessage: "$20 for two people (approx.)",
+            },
+          },
+        },
+      },
+      {},
+      {
+        groupedCard: {
+          cardGroupMap: {
+            REGULAR: {
+              cards: [
+                {}, // First empty object to match the expected index
+                {
+                  card: {
+                    card: {
+                      itemCards: [
+                        {
+                          card: {
+                            info: {
+                              id: 1,
+                              name: "Pizza Margherita",
+                              description:
+                                "Classic Margherita with mozzarella and basil",
+                            },
+                          },
+                        },
+                        {
+                          card: {
+                            info: {
+                              id: 2,
+                              name: "Tacos al Pastor",
+                              description:
+                                "Pork tacos with pineapple and spices",
+                            },
+                          },
+                        },
+                      ],
+                    },
+                  },
+                },
+              ],
+            },
+          },
+        },
+      },
+    ],
+  };
   const [resInfo, setResInfo] = useState(null);
 
   useEffect(() => {
@@ -13,6 +70,9 @@ const useRestaurantMenu = (resId) => {
     );
 
     const json = await data.json();
+
+    console.log("JSON.DATA: ", json.data);
+    // setResInfo(mockResInfo);
     setResInfo(json.data);
   };
 
