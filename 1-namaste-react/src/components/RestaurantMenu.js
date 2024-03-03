@@ -1,59 +1,50 @@
 import Shimmer from "./Shimmer";
-import {useParams} from "react-router-dom";
+import { useParams } from "react-router-dom";
 import useRestaurantMenu from "../utils/useRestaurantMenu";
+import RestaurantCategory from "./RestaurantCategory";
+import { useState } from "react";
 
 const RestaurantMenu = () => {
-  const {resId} = useParams();
+  const { resId } = useParams();
   const resInfo = useRestaurantMenu(resId);
 
-  console.log("RESTAURANT ID:", resId);
-  console.log("const resInfo = useRestaurantMenu(resId);:", resInfo);
+  const [showIndex, setShowIndex] = useState(0);
 
   if (!resInfo) return <Shimmer />;
 
-  const {name, cuisines, costForTwoMessage} =
+  const { name, cuisines, costForTwoMessage } =
     resInfo?.cards[0]?.card?.card?.info || {};
 
-  const itemCards =
-    resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card
-      ?.itemCards;
+  const categories =
+    resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter((c) => {
+      return (
+        c.card.card["@type"] ===
+        "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+      );
+    });
 
-  // const cardsTemp =
-  //   resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter((c) => {
-  //     console.log(c.card.card["@type"]);
-  //     c.card.card["@type"] ===
-  //       "type.googleapis.com/swiggy.presentation.food.v2.MenuVegFilterAndBadge";
-  //   });
-
-  // const cardsTemp =
-  //   resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards;
-
-  // console.log("cardsTemp: ", cardsTemp);
-
-  console.log("itemCards: ", itemCards);
   return (
-    <div className="menu">
-      <h1>{name}</h1>
-      <h2>
+    <div className="text-center">
+      <h1 className="font-bold my-6 text-2xl">{name}</h1>
+      <h2 className="font-bold text-lg">
         {cuisines?.join(", ")} - {costForTwoMessage}
       </h2>
       <hr />
 
-      <h2>Menu:</h2>
+      <h2 className="">Menu:</h2>
 
-      {itemCards?.length ? (
-        <>
-          {itemCards.map((itemCard) => (
-            <div key={itemCard.card.info.id}>
-              <h3>{itemCard.card.info.name}</h3>
-              <h5>{itemCard.card.info.description}</h5>
-              <br />
-            </div>
-          ))}
-        </>
-      ) : (
-        <p>No items found</p>
-      )}
+      {categories.map((category, index) => (
+        <RestaurantCategory
+          key={category?.card?.card.title}
+          data={category?.card?.card}
+          showItems={index === showIndex ? true : false}
+          setShowIndex={() => {
+            setShowIndex((prev) => {
+              return index === prev ? -1 : index;
+            });
+          }}
+        />
+      ))}
     </div>
   );
 };

@@ -2,9 +2,12 @@ import React from "react";
 import useFetchAndFilterData from "../utils/useFetchAndFilterData"; // Adjust the path as necessary
 import useOnlineStatus from "../utils/useOnlineStatus"; // Adjust the path as necessary
 import Shimmer from "./Shimmer";
-import RestaurantCard, {withPromotedLabel} from "./RestaurantCard";
-import {Link} from "react-router-dom";
+import RestaurantCard, { withPromotedLabel } from "./RestaurantCard";
+import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+
+import { useState, useContext } from "react";
+import UserContext from "../utils/UserContext";
 
 const Body = () => {
   const {
@@ -17,10 +20,9 @@ const Body = () => {
   } = useFetchAndFilterData();
 
   const RestaurantCardPromoted = withPromotedLabel(RestaurantCard); //higher-order component
-
   const onlineStatus = useOnlineStatus();
 
-  // console.log("data:", data);
+  const { setUsername, loggedInUser } = useContext(UserContext);
 
   if (!onlineStatus) {
     return <div>You're offline</div>;
@@ -62,6 +64,17 @@ const Body = () => {
           >
             Top Rated Restaurants
           </button>
+        </div>
+
+        <div className="flex items-center m-4 p-4">
+          <label htmlFor="Username">Username: </label>
+          <input
+            className="border border-black "
+            onChange={(e) => {
+              setUsername(e.target.value);
+            }}
+            value={loggedInUser}
+          />
         </div>
       </div>
 
