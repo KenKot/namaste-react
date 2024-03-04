@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import {createSlice, current} from "@reduxjs/toolkit";
 
 const cartSlice = createSlice({
   name: "cart",
@@ -8,17 +8,27 @@ const cartSlice = createSlice({
   },
   reducers: {
     addItem: (state, action) => {
+      // in old redux, we werent suppose to mutate state:
+      // ex:
+      // const newState =[..state]
+      // newState.items.push(action.payload)
+      // return newState
+
+      // in RTK, we HAVE to mutate the state, or return a new state
       // a reducer function
       // we are mutating the state here
       state.items.push(action.payload);
-
-      // in old redux, we werent suppose to mutate state
     },
     removeItem: (state) => {
       state.items.pop();
     },
     clearCart: (state) => {
+      //how to properly log the current state
+      console.log(current(state));
       state.items.length = 0; // []
+
+      // you can also do:
+      // return []
     },
   },
 });
@@ -32,5 +42,5 @@ const cartSlice = createSlice({
 // }
 
 //ACTIONS
-export const { addItem, removeItem, clearCart } = cartSlice.actions;
+export const {addItem, removeItem, clearCart} = cartSlice.actions;
 export default cartSlice.reducer;
