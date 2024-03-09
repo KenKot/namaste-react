@@ -21,6 +21,12 @@ const useFetchAndFilterData = () => {
       json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
 
+    // console.log("!!!!!!!!!!!!!!!!!!!@@@!!!!!!!!!!");
+    // console.log(
+    //   json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+    // );
+    // console.log("!!!!!!!!!!!!!!!!!!!@@@!!!!!!!!!!");
+
     setFilteredData(
       json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
