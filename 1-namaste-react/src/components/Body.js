@@ -2,10 +2,10 @@ import React from "react";
 import useFetchAndFilterData from "../utils/useFetchAndFilterData"; // Adjust the path as necessary
 import useOnlineStatus from "../utils/useOnlineStatus"; // Adjust the path as necessary
 import Shimmer from "./Shimmer";
-import RestaurantCard, {withPromotedLabel} from "./RestaurantCard";
-import {Link} from "react-router-dom";
+import RestaurantCard, { withPromotedLabel } from "./RestaurantCard";
+import { Link } from "react-router-dom";
 
-import {useContext} from "react";
+import { useContext } from "react";
 import UserContext from "../utils/UserContext";
 
 const Body = () => {
@@ -21,7 +21,7 @@ const Body = () => {
   const RestaurantCardPromoted = withPromotedLabel(RestaurantCard); //higher-order component
   const onlineStatus = useOnlineStatus();
 
-  const {setUsername, loggedInUser} = useContext(UserContext);
+  const { setUsername, loggedInUser } = useContext(UserContext);
 
   if (!onlineStatus) {
     return <div>You're offline</div>;
@@ -32,9 +32,10 @@ const Body = () => {
   ) : (
     <div className="body ">
       <div className="flex justify-center gap-4 mx-4">
-        <div className="mx-4 flex items-center border border-black border-solid p-2">
+        <div className="flex items-center p-2 mx-4 border border-black border-solid">
           <input
             type="text"
+            data-testid="searchInput"
             className="p-2"
             value={searchText}
             onChange={(e) => {
@@ -42,7 +43,7 @@ const Body = () => {
             }}
           />
           <button
-            className="px-8 py-2 bg-green-100 m-2 rounded-lg"
+            className="px-8 py-2 m-2 bg-green-100 rounded-lg"
             onClick={() => {
               const filteredRestaurants = data.filter((res) =>
                 res.info.name.toLowerCase().includes(searchText.toLowerCase())
@@ -57,7 +58,11 @@ const Body = () => {
           <button
             className="px-4 py-2 bg-gray-100 rounded-lg"
             onClick={() => {
-              setData((prev) => prev.filter((res) => res.info.avgRating > 4.4));
+              setFilteredData((prev) =>
+                prev.filter((res) => {
+                  return res.info.avgRating > 4.4;
+                })
+              );
             }}
           >
             Top Rated Restaurants
@@ -69,7 +74,7 @@ const Body = () => {
             Username:{" "}
           </label>
           <input
-            className="border border-black p-2"
+            className="p-2 border border-black"
             onChange={(e) => {
               setUsername(e.target.value);
             }}

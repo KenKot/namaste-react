@@ -15,8 +15,9 @@ const ItemList = ({ items, dummy }) => {
     <div>
       {items?.map((item) => (
         <div
+          data-testid="foodItems"
           key={item.card.info.id}
-          className="p-2 m-2 border-gray-200 border-b-2 text-left flex justify-between"
+          className="flex justify-between p-2 m-2 text-left border-b-2 border-gray-200"
         >
           <div className="w-9/12">
             <div className="py-2">
@@ -33,7 +34,7 @@ const ItemList = ({ items, dummy }) => {
           <div className="w-3/12 p-4">
             <div className="absolute">
               <button
-                className="p-2 mx-16 rounded-lg bg-black text-white shadow-lg"
+                className="p-2 mx-16 text-white bg-black rounded-lg shadow-lg"
                 onClick={() => {
                   handleAddItem(item);
                 }}
@@ -62,7 +63,7 @@ export default ItemList;
 //       {items.map((item) => (
 //         <div
 //           key={item.card.info.id}
-//           className="p-2 m-2 border-gray-200 border-b-2 text-left "
+//           className="p-2 m-2 text-left border-b-2 border-gray-200 "
 //         >
 //           <img
 //             src={`${CDN_URL}${item.card.info.imageId}`}

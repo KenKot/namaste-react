@@ -1,4 +1,4 @@
-import {CDN_URL} from "../utils/constants";
+import { CDN_URL } from "../utils/constants";
 
 const RestaurantCard = (props) => {
   const {
@@ -11,13 +11,16 @@ const RestaurantCard = (props) => {
   } = props?.res?.info || {};
 
   return (
-    <div className="m-4 p-4 w-40 rounded-lg bg-gray-100 hover:bg-gray-200">
+    <div
+      data-testid="resCard"
+      className="w-40 p-4 m-4 bg-gray-100 rounded-lg hover:bg-gray-200"
+    >
       <img
         className="w-48 rounded-lg"
         src={`${CDN_URL}${cloudinaryImageId}`}
         alt="res-logo"
       />
-      <h3 className="font-bold py-2 text-lg">{name}</h3>
+      <h3 className="py-2 text-lg font-bold">{name}</h3>
       {cuisines?.length ? (
         <h4 className="text-gray-700">{cuisines.join(", ")}</h4>
       ) : (
@@ -36,7 +39,7 @@ export const withPromotedLabel = (RestaurantCard) => {
   return (props) => {
     return (
       <div className="relative">
-        <label className="absolute top-0 left-0 bg-red-500 text-white text-sm font-bold m-2 p-2 rounded-lg">
+        <label className="absolute top-0 left-0 p-2 m-2 text-sm font-bold text-white bg-red-500 rounded-lg">
           Promoted
         </label>
         <RestaurantCard {...props} />
@@ -65,9 +68,9 @@ export const withPromotedLabel = (RestaurantCard) => {
 //   } = props?.res?.info || {};
 
 //   return (
-//     <div className="m-4 w-40" style={styleCard}>
+//     <div className="w-40 m-4" style={styleCard}>
 //       <img
-//         className="res-logo w-48 "
+//         className="w-48 res-logo "
 //         src={`${CDN_URL}${cloudinaryImageId}`}
 //         alt="res-logo"
 //       />
@@ -84,7 +87,7 @@ export const withPromotedLabel = (RestaurantCard) => {
 //   return (props) => {
 //     return (
 //       <div>
-//         <label className="txt-xl bg-red-950 color text-white text-center p-2 ">
+//         <label className="p-2 text-center text-white txt-xl bg-red-950 color ">
 //           Promoted
 //         </label>
 //         <RestaurantCard {...props} />

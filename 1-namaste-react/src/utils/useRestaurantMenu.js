@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 
 const useRestaurantMenu = (resId) => {
   const mockResInfo = {
@@ -71,7 +71,11 @@ const useRestaurantMenu = (resId) => {
 
     const json = await data.json();
 
-    console.log("JSON.DATA: ", json.data);
+    // console.log("!fetch DATA");
+    // console.log(json);
+    // console.log("! fetch DATA");
+
+    // console.log("JSON.DATA: ", json.data);
     // setResInfo(mockResInfo);
     setResInfo(json.data);
   };
